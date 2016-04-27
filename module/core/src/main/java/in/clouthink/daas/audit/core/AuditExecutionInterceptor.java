@@ -1,6 +1,7 @@
 package in.clouthink.daas.audit.core;
 
 import in.clouthink.daas.audit.annotation.Ignored;
+import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.spi.AuditEventDispatcher;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.audit.spi.AuditEventResolver;
@@ -30,6 +31,8 @@ public class AuditExecutionInterceptor
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	private SecurityContext securityContext;
+
 	private AuditEventResolver auditEventResolver;
 
 	private AuditEventPersister auditEventPersister;
@@ -42,10 +45,20 @@ public class AuditExecutionInterceptor
 	 * @param auditEventResolver
 	 * @param auditEventPersister
 	 */
-	public AuditExecutionInterceptor(AuditEventResolver auditEventResolver, AuditEventPersister auditEventPersister) {
+	public AuditExecutionInterceptor(SecurityContext securityContext,
+									 AuditEventResolver auditEventResolver,
+									 AuditEventPersister auditEventPersister) {
+		this.securityContext = securityContext;
 		this.auditEventResolver = auditEventResolver;
 		this.auditEventPersister = auditEventPersister;
 		Edms.getEdm().register(AuditEventDispatcher.EVENT_PATH, this);
+	}
+
+	/**
+	 * @param securityContext
+	 */
+	public void setSecurityContext(SecurityContext securityContext) {
+		this.securityContext = securityContext;
 	}
 
 	/**
@@ -98,7 +111,7 @@ public class AuditExecutionInterceptor
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		MutableAuditEvent auditEvent = auditEventResolver.resolve(
-				new DefaultAuditEventContext(request, targetClass, userDeclaredMethod));
+				new DefaultAuditEventContext(securityContext, request, targetClass, userDeclaredMethod));
 		auditEvent.setRequestedAt(new Date(currentTimeMillis));
 		try {
 			Object result = invocation.proceed();

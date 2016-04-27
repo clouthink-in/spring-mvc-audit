@@ -4,6 +4,7 @@ import in.clouthink.daas.audit.annotation.EnableAudit;
 import in.clouthink.daas.audit.configure.AuditConfigurer;
 import in.clouthink.daas.audit.core.AuditExecutionConfigurer;
 import in.clouthink.daas.audit.sample.mongodb.spiImpl.AuditEventPersisterImpl;
+import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -34,7 +35,8 @@ public class Application {
 
 			@Override
 			public void configure(AuditExecutionConfigurer auditExecutionConfigurer) {
-//				auditExecutionConfigurer.setAuditEventPersister(auditEventPersisterImpl());
+				auditExecutionConfigurer.setSecurityContext(() -> "configured-sample-user");
+				auditExecutionConfigurer.setAuditEventPersister(auditEventPersisterImpl());
 				auditExecutionConfigurer.setErrorDetailRequired(true);
 			}
 

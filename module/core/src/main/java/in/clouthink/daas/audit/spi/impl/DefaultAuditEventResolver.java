@@ -3,6 +3,7 @@ package in.clouthink.daas.audit.spi.impl;
 import in.clouthink.daas.audit.core.AuditEventContext;
 import in.clouthink.daas.audit.core.DefaultAuditEvent;
 import in.clouthink.daas.audit.core.MutableAuditEvent;
+import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.security.SecurityContexts;
 import in.clouthink.daas.audit.spi.AuditEventResolver;
 import io.swagger.annotations.Api;
@@ -31,6 +32,7 @@ public class DefaultAuditEventResolver implements AuditEventResolver {
 
 	@Override
 	public MutableAuditEvent resolve(AuditEventContext context) {
+		SecurityContext securityContext = context.getSecurityContext();
 		HttpServletRequest request = context.getHttpServletRequest();
 		Class targetClazz = context.getTargetClass();
 		Method userDeclaredMethod = context.getTargetMethod();
@@ -44,7 +46,13 @@ public class DefaultAuditEventResolver implements AuditEventResolver {
 		auditEvent.setClientAddress(request.getRemoteAddr());
 		auditEvent.setForwardedFor(request.getHeader("X-Forwarded-For"));
 		auditEvent.setUserAgent(request.getHeader("User-Agent"));
-		auditEvent.setRequestedBy(SecurityContexts.getContext().getPrincipal());
+		if (securityContext != null) {
+			auditEvent.setRequestedBy(securityContext.getPrincipal());
+		} else if (SecurityContexts.getContext() != null) {
+			auditEvent.setRequestedBy(SecurityContexts.getContext().getPrincipal());
+		} else {
+			auditEvent.setRequestedBy(request.getUserPrincipal());
+		}
 
 		Api classAuditMetadata = (Api) targetClazz.getAnnotation(Api.class);
 		ApiOperation methodAuditMetadata = userDeclaredMethod.getAnnotation(ApiOperation.class);

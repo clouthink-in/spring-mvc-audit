@@ -1,5 +1,6 @@
 package in.clouthink.daas.audit.core;
 
+import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.audit.spi.AuditEventResolver;
 import org.springframework.aop.framework.AbstractAdvisingBeanPostProcessor;
@@ -12,6 +13,8 @@ public class AuditAnnotationBeanPostProcessor extends AbstractAdvisingBeanPostPr
 		implements BeanFactoryAware, AuditExecutionConfigurer {
 
 	private Class<? extends Annotation> auditAnnotationType;
+
+	private SecurityContext securityContext;
 
 	private AuditEventResolver auditEventResolver;
 
@@ -45,6 +48,15 @@ public class AuditAnnotationBeanPostProcessor extends AbstractAdvisingBeanPostPr
 		return auditEventResolver;
 	}
 
+	public SecurityContext getSecurityContext() {
+		return securityContext;
+	}
+
+	@Override
+	public void setSecurityContext(SecurityContext securityContext) {
+		this.securityContext = securityContext;
+	}
+
 	@Override
 	public void setAuditEventResolver(AuditEventResolver auditEventResolver) {
 		this.auditEventResolver = auditEventResolver;
@@ -70,7 +82,8 @@ public class AuditAnnotationBeanPostProcessor extends AbstractAdvisingBeanPostPr
 
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) {
-		AuditAnnotationAdvisor advisor = new AuditAnnotationAdvisor(auditEventResolver, auditEventPersister);
+		AuditAnnotationAdvisor advisor = new AuditAnnotationAdvisor(securityContext, auditEventResolver,
+																	auditEventPersister);
 		if (this.auditAnnotationType != null) {
 			advisor.setAuditAnnotationType(this.auditAnnotationType);
 		}

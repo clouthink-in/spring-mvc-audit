@@ -5,12 +5,12 @@ import java.util.Date;
 
 /**
  */
-public interface AuditEvent extends Serializable {
+public interface AuditEvent<T> extends Serializable {
 
 	/**
 	 * @return who send the request
 	 */
-	String getRequestedBy();
+	T getRequestedBy();
 
 	/**
 	 * The time to start the request

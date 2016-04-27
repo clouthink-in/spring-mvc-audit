@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class DefaultAuditEvent implements MutableAuditEvent {
 
-	String requestedBy;
+	Object requestedBy;
 
 	Date requestedAt;
 
@@ -38,12 +38,12 @@ public class DefaultAuditEvent implements MutableAuditEvent {
 	String errorDetail;
 
 	@Override
-	public String getRequestedBy() {
+	public Object getRequestedBy() {
 		return requestedBy;
 	}
 
 	@Override
-	public void setRequestedBy(String requestedBy) {
+	public void setRequestedBy(Object requestedBy) {
 		this.requestedBy = requestedBy;
 	}
 

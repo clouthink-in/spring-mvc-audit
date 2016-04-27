@@ -3,13 +3,13 @@ package in.clouthink.daas.audit.security;
 
 /**
  */
-public interface SecurityContext {
+public interface SecurityContext<T> {
 
 	/**
-	 * Get current principal which as the username of audit entry
+	 * Get current principal which may be the user of audit event
 	 *
 	 * @return
 	 */
-	String getPrincipal();
+	T getPrincipal();
 
 }

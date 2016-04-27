@@ -4,9 +4,9 @@ import java.util.Date;
 
 /**
  */
-public interface MutableAuditEvent extends AuditEvent {
+public interface MutableAuditEvent<T> extends AuditEvent<T> {
 
-	void setRequestedBy(String requestedBy);
+	void setRequestedBy(T requestedBy);
 
 	void setRequestedAt(Date requestedAt);
 

@@ -1,5 +1,6 @@
 package in.clouthink.daas.audit.core;
 
+import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.audit.spi.AuditEventResolver;
 import org.aopalliance.aop.Advice;
@@ -23,8 +24,10 @@ public class AuditAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 	/**
 	 * Create a new {@code AsyncAnnotationAdvisor} for bean-style configuration.
 	 */
-	public AuditAnnotationAdvisor(AuditEventResolver auditEventResolver, AuditEventPersister auditEventPersister) {
-		this.advice = buildAdvice(auditEventResolver, auditEventPersister);
+	public AuditAnnotationAdvisor(SecurityContext securityContext,
+								  AuditEventResolver auditEventResolver,
+								  AuditEventPersister auditEventPersister) {
+		this.advice = buildAdvice(securityContext, auditEventResolver, auditEventPersister);
 		this.pointcut = buildPointcut(RequestMapping.class);
 	}
 
@@ -65,8 +68,10 @@ public class AuditAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 		return this.pointcut;
 	}
 
-	private Advice buildAdvice(AuditEventResolver auditEventResolver, AuditEventPersister auditEventPersister) {
-		return new AuditExecutionInterceptor(auditEventResolver, auditEventPersister);
+	private Advice buildAdvice(SecurityContext securityContext,
+							   AuditEventResolver auditEventResolver,
+							   AuditEventPersister auditEventPersister) {
+		return new AuditExecutionInterceptor(securityContext, auditEventResolver, auditEventPersister);
 	}
 
 	/**
