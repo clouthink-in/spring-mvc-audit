@@ -14,7 +14,7 @@ So far the following version is available
 
 module name | latest version
 ------|------
-daas-audit |1.0.1
+daas-audit | 1.0.2
 
 ## Maven
 
