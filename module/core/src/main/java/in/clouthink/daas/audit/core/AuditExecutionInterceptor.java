@@ -51,7 +51,7 @@ public class AuditExecutionInterceptor
 		this.securityContext = securityContext;
 		this.auditEventResolver = auditEventResolver;
 		this.auditEventPersister = auditEventPersister;
-		Edms.getEdm().register(AuditEventDispatcher.EVENT_PATH, this);
+		Edms.getEdm(AuditEventDispatcher.QUEUE_NAME).register(AuditEventDispatcher.EVENT_PATH, this);
 	}
 
 	/**

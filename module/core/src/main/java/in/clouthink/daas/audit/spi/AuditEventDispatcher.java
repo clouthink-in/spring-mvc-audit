@@ -6,6 +6,8 @@ import in.clouthink.daas.audit.core.AuditEvent;
  */
 public interface AuditEventDispatcher {
 
+	String QUEUE_NAME = AuditEvent.class.getName();
+
 	String EVENT_PATH = AuditEvent.class.getName();
 
 	/**

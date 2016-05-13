@@ -11,7 +11,7 @@ public class DefaultAuditEventDispatcher implements AuditEventDispatcher {
 
 	@Override
 	public void dispatch(AuditEvent auditEvent) {
-		Edms.getEdm().dispatch(AuditEventDispatcher.EVENT_PATH, auditEvent);
+		Edms.getEdm(AuditEventDispatcher.QUEUE_NAME).dispatch(AuditEventDispatcher.EVENT_PATH, auditEvent);
 	}
 
 }

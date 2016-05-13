@@ -6,7 +6,7 @@
 
     <groupId>in.clouthink.daas</groupId>
     <artifactId>daas-audit</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>daas-audit</name>
     <url>http://clouthink.in</url>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>in.clouthink.daas</groupId>
             <artifactId>daas-edm</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </dependency>
 
         <dependency>
