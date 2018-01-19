@@ -7,7 +7,7 @@ import in.clouthink.daas.edm.Edms;
 /**
  * The default impl delegates the audit detail by daas-edm
  */
-public class DefaultAuditEventDispatcher implements AuditEventDispatcher {
+public class AuditEventEdmDispatcher implements AuditEventDispatcher {
 
 	@Override
 	public void dispatch(AuditEvent auditEvent) {

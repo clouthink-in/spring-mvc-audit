@@ -2,11 +2,17 @@
 
 The simple and quick audit lib for spring mvc http request.
 
+The audit log will be sent by:
+
+* [Edm](https://github.com/melthaw/spring-event-driven-message)
+* Kafka
+
 # Dependencies
 
 * Spring Mvc Framework (Over 3)
-* in.clouthink:daas-edm:1.0.1 
-* io.swagger:swagger-annotations:1.5.x 
+* in.clouthink:daas-edm:1.* (optional)
+* org.springframework.kafka:spring-kafka:2.* (optional)
+* io.swagger:swagger-annotations:1.5.x
 
 # Usage
 
@@ -14,7 +20,7 @@ So far the following version is available
 
 module name | latest version
 ------|------
-daas-audit | 1.0.2
+daas-audit | 1.1.0
 
 ## Maven
 

@@ -5,7 +5,7 @@ import in.clouthink.daas.audit.security.SecurityContext;
 import in.clouthink.daas.audit.spi.AuditEventDispatcher;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.audit.spi.AuditEventResolver;
-import in.clouthink.daas.audit.spi.impl.DefaultAuditEventDispatcher;
+import in.clouthink.daas.audit.spi.impl.AuditEventEdmDispatcher;
 import in.clouthink.daas.edm.Edms;
 import in.clouthink.daas.edm.EventListener;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -37,7 +37,7 @@ public class AuditExecutionInterceptor
 
 	private AuditEventPersister auditEventPersister;
 
-	private AuditEventDispatcher auditEventDispatcher = new DefaultAuditEventDispatcher();
+	private AuditEventDispatcher auditEventDispatcher = new AuditEventEdmDispatcher();
 
 	private BeanFactory beanFactory;
 

@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>in.clouthink.daas</groupId>
     <artifactId>daas-audit-sample</artifactId>
-    <version>1.0.1-snapshot</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>daas-audit-sample</name>
     <url>http://clouthink.in</url>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>daas-audit</artifactId>
-            <version>1.0.2</version>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>
